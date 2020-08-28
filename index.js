@@ -1,20 +1,21 @@
 const express = require('express');
+//requiere el archivo de conexion de la DB
 const conectarDB = require('./config/db');
 const cors = require('cors');
 
-// Crear el servidor 
+// Crear el servidor express
 const app = express();
 
 // Conectar a la base de datos
 conectarDB();
 
 // Habilitar cors
-// app.use(cors());
-app.use(cors({ credentials: true, origin: true }));
-app.options("*", cors());
+app.use(cors());
+/* app.use(cors({ credentials: true, origin: true }));
+app.options("*", cors()); */
 
 
-// Habilitar express.json
+// Habilita a la app a usar JSON por medio de express
 app.use(express.json({ extended: true }));
 
 // Puerto de la app
@@ -34,6 +35,6 @@ app.use('/api/tareas', require('./routes/tareas'));
 
 
 // Arrancar la app
-app.listen(port, () => {
+app.listen(port, "0.0.0.0", () => {
     console.log(`El servidor esta funcionando en el puerto ${port}`);
 });
